@@ -1,0 +1,27 @@
+{
+  "name": "webpack-addons-demo",
+  "version": "1.0.0",
+  "description": "Example webpack-addon",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ev1stensberg/webpack-addons-demo.git"
+  },
+  "author": "Even Stensberg<evenstensberg@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ev1stensberg/webpack-addons-demo/issues"
+  },
+  "homepage": "https://github.com/ev1stensberg/webpack-addons-demo#readme",
+  "devDependencies": {
+    "babel-eslint": "^6.1.2",
+    "eslint": "^3.19.0",
+    "eslint-plugin-node": "^4.2.2"
+  },
+  "dependencies": {
+    "yeoman-generator": "^1.1.1"
+  }
+}
