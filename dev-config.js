@@ -1,3 +1,7 @@
 module.exports = function createDevConfig(answer) {
-	let devConfig = {};
+	let entryProp = answer.entry ? ( "'" + answer.entry + "'") : "'index.js'"
+	let devConfig = {
+		entry: entryProp
+	};
+	return devConfig;
 };

@@ -155,3 +155,24 @@ module.exports = class WebpackGenerator extends Generator {
 	}
 };
 ```
+
+These answers aren't well known on their own for us, so let's go ahead and create our config.
+
+## Part 3-A
+
+Let's start by looking at `dev-config.js`. We have some answers, now we want to use them to build up an config. How do we do that? Evidently, we should mount our values on the variable we've declared, with some properties we want to build up. We also want to use the answers for the entry prop.
+
+##### Important: With string values, you need to wrap your strings once again. This is because we can declare some other functionality, using only " ", while " 'Mystring' " resolves to a string.
+
+[`dev-config.js`]()
+
+```js
+module.exports = function createDevConfig(answer) {
+	let entryProp = answer.entry ? ( "'" + answer.entry + "'") : "'index.js'"
+	let devConfig = {
+		entry: entryProp
+	};
+	return devConfig;
+};
+
+```
