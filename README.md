@@ -82,3 +82,76 @@ module.exports = class WebpackGenerator extends Generator {
 	}
 };
 ```
+
+## Part 2-A
+
+Congrats, you've now created the base of an `webpack-addon`! Let's add some stuff to our future configuration file!
+I'm going to follow good convention, and extract my config into another file, named `dev-config.js`. As this is just regular JavaScript, we can make the module a function, and supply our entry as a parameter for us to build up a configuration file from.
+
+[`dev-config.js`]()
+
+```js
+module.exports = function createDevConfig(answer) {
+	let devConfig = {};
+};
+```
+
+[`generator.js`]()
+
+```js
+const Generator = require('yeoman-generator');
+const List = require('webpack-addons').List;
+const createDevConfig = require('./dev-config');
+
+module.exports = class WebpackGenerator extends Generator {
+	constructor(args, opts) {
+		super(args, opts);
+		opts.env.configuration = {
+			dev: {
+				webpackOptions: {}
+			}
+		};
+	}
+
+	prompting() {
+		return this.prompt([
+			List('confirm', 'Welcome to the demo scaffold! Are you ready?', ['Yes', 'No', 'Pengwings'])
+		]).then (answer => {
+			if(answer['confirm'] === 'Pengwings') {
+				this.options.env.configuration.dev.webpackOptions = createDevConfig(answer);
+			}
+		});
+	}
+};
+```
+
+Sweet! We've now abstracted some part of the code that's probably gonna be really big. We can almost call ourselves engineers now! Let's go ahead and add another question, like asking for an entry point.
+
+```js
+const Generator = require('yeoman-generator');
+const List = require('webpack-addons').List;
+const Input = require('webpack-addons').Input;
+const createDevConfig = require('./dev-config');
+
+module.exports = class WebpackGenerator extends Generator {
+	constructor(args, opts) {
+		super(args, opts);
+		opts.env.configuration = {
+			dev: {
+				webpackOptions: {}
+			}
+		};
+	}
+
+	prompting() {
+		return this.prompt([
+			List('confirm', 'Welcome to the demo scaffold! Are you ready?', ['Yes', 'No', 'Pengwings']),
+			Input('entry', 'What is the entry point in your app?')
+		]).then (answer => {
+			if(answer['confirm'] === 'Pengwings') {
+				this.options.env.configuration.dev.webpackOptions = createDevConfig(answer);
+			}
+		});
+	}
+};
+```
