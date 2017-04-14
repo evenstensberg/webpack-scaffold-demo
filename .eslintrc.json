@@ -15,6 +15,9 @@
     "node"
   ],
   "rules": {
+    "no-empty": [
+      "warn"
+    ],
     "indent": [
       "error",
       "tab"

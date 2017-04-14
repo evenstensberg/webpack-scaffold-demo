@@ -22,6 +22,7 @@
     "eslint-plugin-node": "^4.2.2"
   },
   "dependencies": {
+    "webpack-addons": "^1.0.5",
     "yeoman-generator": "^1.1.1"
   }
 }
