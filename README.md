@@ -8,7 +8,7 @@ Welcome to an demonstration of the new `webpack --init` feature! To view what we
 
 First, we have to define our skeleton. In order for the CLI to find our options, we've got to define some properties in the constructor first.
 
-`generator.js`
+##### `generator.js`
 
 ```js
 const Generator = require('yeoman-generator');
@@ -97,7 +97,7 @@ module.exports = class WebpackGenerator extends Generator {
 Congrats, you've now created the base of an `webpack-addon`! Let's add some stuff to our future configuration file!
 I'm going to follow good convention, and extract my config into another file, named `dev-config.js`. As this is just regular JavaScript, we can make the module a function, and supply our entry as a parameter for us to build up a configuration file from.
 
-`dev-config.js`
+##### `dev-config.js`
 
 ```js
 module.exports = function createDevConfig(answer) {
@@ -105,7 +105,7 @@ module.exports = function createDevConfig(answer) {
 };
 ```
 
-`generator.js`
+##### `generator.js`
 
 ```js
 const Generator = require('yeoman-generator');
@@ -175,7 +175,7 @@ Let's start by looking at `dev-config.js`. We have some answers, now we want to 
 
 ##### Important: With string values, you need to wrap your strings once again. This is because we can declare some other functionality, using only " ", while " 'Mystring' " resolves to a string.
 
-`dev-config.js`
+##### `dev-config.js`
 
 ```js
 module.exports = function createDevConfig(answer) {
@@ -255,7 +255,7 @@ module.exports = class WebpackGenerator extends Generator {
 
 Let's go ahead and create our utility. We've got an utility for this in `webpack-addons`, so if you do `const createCommonsChunkPlugin = require('webpack-addons').commonChunksPluginCreate;`, you get the same thing. I'm doing this for demonstration purposes, so that you can better know how to compose an addon in good faith. First, I'm going to create a `create-chunk.js`, followed up by an import in `dev-config.js`.
 
-`dev-config.js`
+##### `dev-config.js`
 
 ```js
 const createCommonsChunkPlugin = require('./commons-chunk');
@@ -276,7 +276,7 @@ module.exports = function createDevConfig(answer) {
 };
 ```
 
-[`commons-chunk.js`]()
+##### `commons-chunk.js`
 
 ```js
 module.exports = function createCommonsChunkPlugin(chunk) {
@@ -307,7 +307,7 @@ Sweet! We've now created a scaffold with `entry`, `output`, `context` and a `plu
 
 In order for webpack to compile correctly, we've got to import `path`. For this, we've got to define something called `topScope`. This is where our code before `module.exports` are going, where you can add everything from imports, variables, to functions. The syntax is the same as with the plugins, except that the `topScope` property expects an array. In `topScope` you can define whatever you want.
 
-`generator.js`
+##### `generator.js`
 
 ```js
 const Generator = require('yeoman-generator');
