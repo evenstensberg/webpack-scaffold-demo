@@ -2,6 +2,7 @@
 
 Welcome to an demonstration of the new `webpack --init` feature! To view what we are building today, simply do `webpack --init webpack-addons-demo`. This demo is to show you how to build your own webpack scaffold. Let's start by creating an file named `generator.js`.
 
+</hr>
 
 ## Part 1 
 
@@ -23,6 +24,8 @@ module.exports = class WebpackGenerator extends Generator {
 ```
 
 As you can see, the `configuration` object has to have one property you name, it can be anything. A good practise is to name the underlying property with the name you want to give your `webpack.config.js` file, to better indicate what values each file has.
+
+</hr>
 
 ## PART 1-A
 
@@ -52,6 +55,8 @@ module.exports = class WebpackGenerator extends Generator {
 	}
 };
 ```
+
+</hr>
 
 ## PART 1-B
 
@@ -84,6 +89,8 @@ module.exports = class WebpackGenerator extends Generator {
 	}
 };
 ```
+
+</hr>
 
 ## Part 2-A
 
@@ -160,6 +167,8 @@ module.exports = class WebpackGenerator extends Generator {
 
 These answers aren't well known on their own for us, so let's go ahead and create our config.
 
+</hr>
+
 ## Part 3-A
 
 Let's start by looking at `dev-config.js`. We have some answers, now we want to use them to build up an config. How do we do that? Evidently, we should mount our values on the variable we've declared, with some properties we want to build up. We also want to use the answers for the entry prop. I've also taken the liberty to add an output property that has a `filename`.
@@ -184,6 +193,8 @@ module.exports = function createDevConfig(answer) {
 
 Try running `webpack --init webpack-addons-demo`, and now you're seeing your first scaffold!
 
+</hr>
+
 ## Part 3-B
 
 Cool. Now we've got an initial scaffold. Let's add the rest of our options! For the context, let's say we've got a `path.join` we want to make use of. For this, you use a single quote string.
@@ -201,6 +212,8 @@ module.exports = function createDevConfig(answer) {
 	return devConfig;
 };
 ```
+
+</hr>
 
 ## Part 4-A
 
@@ -236,6 +249,8 @@ module.exports = class WebpackGenerator extends Generator {
 };
 ```
 
+</hr>
+
 ## Part 4-B
 
 Let's go ahead and create our utility. We've got an utility for this in `webpack-addons`, so if you do `const createCommonsChunkPlugin = require('webpack-addons').commonChunksPluginCreate;`, you get the same thing. I'm doing this for demonstration purposes, so that you can better know how to compose an addon in good faith. First, I'm going to create a `create-chunk.js`, followed up by an import in `dev-config.js`.
@@ -269,6 +284,8 @@ module.exports = function createCommonsChunkPlugin(chunk) {
 };
 ```
 
+</hr>
+
 ## Part 4-C
 
 Now, we've got to create a string with our chunk. This is how it looks.
@@ -283,6 +300,8 @@ module.exports = function createCommonsChunkPlugin(chunk) {
 ```
 
 Sweet! We've now created a scaffold with `entry`, `output`, `context` and a `plugin`. If you're curious on the API, check the API for more info on how to scaffold with `regexps`, `module`, or other!
+
+</hr>
 
 ## Part 5-A
 
@@ -324,6 +343,8 @@ module.exports = class WebpackGenerator extends Generator {
 };
 ```
 
+</hr>
+
 ## Part 5-B
 
 You also might want to name your config file something you've got strong personal attachments to, like my love for penguins. To do so, you can do the following.
@@ -364,5 +385,5 @@ module.exports = class WebpackGenerator extends Generator {
 };
 ```
 
-Congrats on your first scaffold! If you need help, submit an issue at this repo, or reach out to me on [Twitter](https://twitter.com/ev1stensberg)!
-You can also check the [repo](https://github.com/webpack/webpack-cli).
+Congrats on your first scaffold! If you need help, submit an [issue](https://github.com/ev1stensberg/webpack-addons-demo/issues), or reach out to me on [Twitter](https://twitter.com/ev1stensberg)!
+You can also check the [CLI repo](https://github.com/webpack/webpack-cli).
