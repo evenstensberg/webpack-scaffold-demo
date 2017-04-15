@@ -313,7 +313,8 @@ module.exports = class WebpackGenerator extends Generator {
 			if(answer['confirm'] === 'Pengwings') {
 				this.options.env.configuration.dev.webpackOptions = createDevConfig(answer);
 				this.options.env.configuration.dev.topScope = [
-					'const path = require("path")'
+					'const path = require("path")',
+					'const webpack = require("webpack")'
 				];
 			}
 		});
@@ -351,7 +352,8 @@ module.exports = class WebpackGenerator extends Generator {
 			if(answer['confirm'] === 'Pengwings') {
 				this.options.env.configuration.dev.webpackOptions = createDevConfig(answer);
 				this.options.env.configuration.dev.topScope = [
-					'const path = require("path")'
+					'const path = require("path")',
+					'const webpack = require("webpack")'
 				];
 				this.options.env.configuration.dev.configName = 'pengwings';
 			}
