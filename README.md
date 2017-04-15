@@ -198,4 +198,4 @@ module.exports = function createDevConfig(answer) {
 	};
 	return devConfig;
 };
-```js
+```
