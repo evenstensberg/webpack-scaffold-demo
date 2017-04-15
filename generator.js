@@ -16,7 +16,8 @@ module.exports = class WebpackGenerator extends Generator {
 	prompting() {
 		return this.prompt([
 			List('confirm', 'Welcome to the demo scaffold! Are you ready?', ['Yes', 'No', 'Pengwings']),
-			Input('entry', 'What is the entry point in your app?')
+			Input('entry', 'What is the entry point in your app?'),
+			Input('plugin', 'What do you want to name your commonsChunk?')
 		]).then (answer => {
 			if(answer['confirm'] === 'Pengwings') {
 				this.options.env.configuration.dev.webpackOptions = createDevConfig(answer);

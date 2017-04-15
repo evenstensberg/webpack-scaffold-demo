@@ -199,3 +199,85 @@ module.exports = function createDevConfig(answer) {
 	return devConfig;
 };
 ```
+
+## Part 4-A
+
+We're ready to add an plugin, as a last piece of the puzzle. For this, I'm going to create an utility for commonsChunk, based on the input from the user. I'll start by adding another question in our prompt.
+
+```js
+const Generator = require('yeoman-generator');
+const List = require('webpack-addons').List;
+const Input = require('webpack-addons').Input;
+const createDevConfig = require('./dev-config');
+
+module.exports = class WebpackGenerator extends Generator {
+	constructor(args, opts) {
+		super(args, opts);
+		opts.env.configuration = {
+			dev: {
+				webpackOptions: {}
+			}
+		};
+	}
+
+	prompting() {
+		return this.prompt([
+			List('confirm', 'Welcome to the demo scaffold! Are you ready?', ['Yes', 'No', 'Pengwings']),
+			Input('entry', 'What is the entry point in your app?'),
+			Input('plugin', 'What do you want to name your commonsChunk?')
+		]).then (answer => {
+			if(answer['confirm'] === 'Pengwings') {
+				this.options.env.configuration.dev.webpackOptions = createDevConfig(answer);
+			}
+		});
+	}
+};
+```
+
+## Part 4-B
+
+Let's go ahead and create our utility. We've got an utility for this in `webpack-addons`, so if you do `const createCommonsChunkPlugin = require('webpack-addons').commonChunksPluginCreate;`, you get the same thing. I'm doing this for demonstration purposes, so that you can better know how to compose an addon in good faith. First, I'm going to create a `create-chunk.js`, followed up by an import in `dev-config.js`.
+
+[`dev-config.js`]()
+
+```js
+const createCommonsChunkPlugin = require('./commons-chunk');
+
+module.exports = function createDevConfig(answer) {
+	let entryProp = answer.entry ? ( "'" + answer.entry + "'") : "'index.js'";
+	let devConfig = {
+		entry: entryProp,
+		output: {
+			filename: "'[name].js'"
+		},
+		context: 'path.join(__dirname, "src")',
+		plugins: [
+			createCommonsChunkPlugin(answer.plugin)
+		]
+	};
+	return devConfig;
+};
+```
+
+[`commons-chunk.js`]()
+
+```js
+module.exports = function createCommonsChunkPlugin(chunk) {
+
+};
+```
+
+## Part 4-C
+
+Now, we've got to create a string with our chunk. This is how it looks.
+
+```js
+module.exports = function createCommonsChunkPlugin(chunk) {
+	return (
+		"new webpack.optimize.CommonsChunkPlugin({name:" + "'" + chunk + "'" +
+		",filename:" + "'" + chunk + "-[hash].min.js'})"
+	);
+};
+```
+
+Sweet! We've now created a scaffold with `entry`, `output`, `context` and a `plugin`. If you're curious on the API, check the API for more info on how to scaffold with `regexps`, `module`, or other!
