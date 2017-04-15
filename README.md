@@ -281,3 +281,84 @@ module.exports = function createCommonsChunkPlugin(chunk) {
 ```
 
 Sweet! We've now created a scaffold with `entry`, `output`, `context` and a `plugin`. If you're curious on the API, check the API for more info on how to scaffold with `regexps`, `module`, or other!
+
+## Part 5-A
+
+In order for webpack to compile correctly, we've got to import `path`. For this, we've got to define something called `topScope`. This is where our code before `module.exports` are going, where you can add everything from imports, variables, to functions. The syntax is the same as with the plugins, except that the `topScope` property expects an array. In `topScope` you can define whatever you want.
+
+[`generator.js`]()
+
+```js
+const Generator = require('yeoman-generator');
+const List = require('webpack-addons').List;
+const Input = require('webpack-addons').Input;
+const createDevConfig = require('./dev-config');
+
+module.exports = class WebpackGenerator extends Generator {
+	constructor(args, opts) {
+		super(args, opts);
+		opts.env.configuration = {
+			dev: {
+				webpackOptions: {}
+			}
+		};
+	}
+
+	prompting() {
+		return this.prompt([
+			List('confirm', 'Welcome to the demo scaffold! Are you ready?', ['Yes', 'No', 'Pengwings']),
+			Input('entry', 'What is the entry point in your app?'),
+			Input('plugin', 'What do you want to name your commonsChunk?')
+		]).then (answer => {
+			if(answer['confirm'] === 'Pengwings') {
+				this.options.env.configuration.dev.webpackOptions = createDevConfig(answer);
+				this.options.env.configuration.dev.topScope = [
+					'const path = require("path")'
+				];
+			}
+		});
+	}
+};
+```
+
+## Part 5-B
+
+You also might want to name your config file something you've got strong personal attachments to, like my love for penguins. To do so, you can do the following.
+
+
+```js
+const Generator = require('yeoman-generator');
+const List = require('webpack-addons').List;
+const Input = require('webpack-addons').Input;
+const createDevConfig = require('./dev-config');
+
+module.exports = class WebpackGenerator extends Generator {
+	constructor(args, opts) {
+		super(args, opts);
+		opts.env.configuration = {
+			dev: {
+				webpackOptions: {}
+			}
+		};
+	}
+
+	prompting() {
+		return this.prompt([
+			List('confirm', 'Welcome to the demo scaffold! Are you ready?', ['Yes', 'No', 'Pengwings']),
+			Input('entry', 'What is the entry point in your app?'),
+			Input('plugin', 'What do you want to name your commonsChunk?')
+		]).then (answer => {
+			if(answer['confirm'] === 'Pengwings') {
+				this.options.env.configuration.dev.webpackOptions = createDevConfig(answer);
+				this.options.env.configuration.dev.topScope = [
+					'const path = require("path")'
+				];
+				this.options.env.configuration.dev.configName = 'pengwings';
+			}
+		});
+	}
+};
+```
+
+Congrats on your first scaffold! If you need help, submit an issue at this repo, or reach out to me on [Twitter]()!
+You can also check the [documentation]().
