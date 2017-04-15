@@ -1,11 +1,13 @@
 # webpack-addons-demo
 
+Welcome to an demonstration of the new `webpack --init` feature! To view what we are building today, simply do `webpack --init webpack-addons-demo`. This demo is to show you how to build your own webpack scaffold. Let's start by creating an file named `generator.js`.
+
 
 ## Part 1 
 
-Let's define our skeleton. In order for the CLI to find our options, we've got to define some properties in the constructor first.
+First, we have to define our skeleton. In order for the CLI to find our options, we've got to define some properties in the constructor first.
 
-[`generator.js`](https://github.com/ev1stensberg/webpack-addons-demo/blob/Part-1/generator.js)
+`generator.js`
 
 ```js
 const Generator = require('yeoman-generator');
@@ -24,7 +26,7 @@ As you can see, the `configuration` object has to have one property you name, it
 
 ## PART 1-A
 
-In order for us to interact with the users, we make good use of the [`prompting`]() method yeoman has. In this method we can get various of answers from the user, like asking for entry points or plugins. You can either manually create each object representing a question, or you can make good use of our utilities from [`webpack-addons`](). I'm in a good mood today, so I'm going to build a configuration if the user chooses `Pengwings`.
+In order for us to interact with the users, we make good use of the [`prompting`](http://yeoman.io/authoring/user-interactions.html) method yeoman has. In this method we can get various of answers from the user, like asking for entry points or plugins. You can either manually create each object representing a question, or you can make good use of our utilities from [`webpack-addons`](https://github.com/webpack-contrib/webpack-addons). I'm in a good mood today, so I'm going to build a configuration if the user chooses `Pengwings`.
 
 
 ```js
@@ -88,7 +90,7 @@ module.exports = class WebpackGenerator extends Generator {
 Congrats, you've now created the base of an `webpack-addon`! Let's add some stuff to our future configuration file!
 I'm going to follow good convention, and extract my config into another file, named `dev-config.js`. As this is just regular JavaScript, we can make the module a function, and supply our entry as a parameter for us to build up a configuration file from.
 
-[`dev-config.js`]()
+`dev-config.js`
 
 ```js
 module.exports = function createDevConfig(answer) {
@@ -96,7 +98,7 @@ module.exports = function createDevConfig(answer) {
 };
 ```
 
-[`generator.js`]()
+`generator.js`
 
 ```js
 const Generator = require('yeoman-generator');
@@ -164,7 +166,7 @@ Let's start by looking at `dev-config.js`. We have some answers, now we want to 
 
 ##### Important: With string values, you need to wrap your strings once again. This is because we can declare some other functionality, using only " ", while " 'Mystring' " resolves to a string.
 
-[`dev-config.js`]()
+`dev-config.js`
 
 ```js
 module.exports = function createDevConfig(answer) {
@@ -238,7 +240,7 @@ module.exports = class WebpackGenerator extends Generator {
 
 Let's go ahead and create our utility. We've got an utility for this in `webpack-addons`, so if you do `const createCommonsChunkPlugin = require('webpack-addons').commonChunksPluginCreate;`, you get the same thing. I'm doing this for demonstration purposes, so that you can better know how to compose an addon in good faith. First, I'm going to create a `create-chunk.js`, followed up by an import in `dev-config.js`.
 
-[`dev-config.js`]()
+`dev-config.js`
 
 ```js
 const createCommonsChunkPlugin = require('./commons-chunk');
@@ -286,7 +288,7 @@ Sweet! We've now created a scaffold with `entry`, `output`, `context` and a `plu
 
 In order for webpack to compile correctly, we've got to import `path`. For this, we've got to define something called `topScope`. This is where our code before `module.exports` are going, where you can add everything from imports, variables, to functions. The syntax is the same as with the plugins, except that the `topScope` property expects an array. In `topScope` you can define whatever you want.
 
-[`generator.js`]()
+`generator.js`
 
 ```js
 const Generator = require('yeoman-generator');
@@ -362,5 +364,5 @@ module.exports = class WebpackGenerator extends Generator {
 };
 ```
 
-Congrats on your first scaffold! If you need help, submit an issue at this repo, or reach out to me on [Twitter]()!
-You can also check the [documentation]().
+Congrats on your first scaffold! If you need help, submit an issue at this repo, or reach out to me on [Twitter](https://twitter.com/ev1stensberg)!
+You can also check the [repo](https://github.com/webpack/webpack-cli).
