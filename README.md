@@ -160,7 +160,7 @@ These answers aren't well known on their own for us, so let's go ahead and creat
 
 ## Part 3-A
 
-Let's start by looking at `dev-config.js`. We have some answers, now we want to use them to build up an config. How do we do that? Evidently, we should mount our values on the variable we've declared, with some properties we want to build up. We also want to use the answers for the entry prop.
+Let's start by looking at `dev-config.js`. We have some answers, now we want to use them to build up an config. How do we do that? Evidently, we should mount our values on the variable we've declared, with some properties we want to build up. We also want to use the answers for the entry prop. I've also taken the liberty to add an output property that has a `filename`.
 
 ##### Important: With string values, you need to wrap your strings once again. This is because we can declare some other functionality, using only " ", while " 'Mystring' " resolves to a string.
 
@@ -168,11 +168,34 @@ Let's start by looking at `dev-config.js`. We have some answers, now we want to 
 
 ```js
 module.exports = function createDevConfig(answer) {
-	let entryProp = answer.entry ? ( "'" + answer.entry + "'") : "'index.js'"
+	let entryProp = answer.entry ? ( "'" + answer.entry + "'") : "'index.js'";
 	let devConfig = {
-		entry: entryProp
+		entry: entryProp,
+		output: {
+			filename: "'[name].js'"
+		}
 	};
 	return devConfig;
 };
 
 ```
+
+Try running `webpack --init webpack-addons-demo`, and now you're seeing your first scaffold!
+
+## Part 3-B
+
+Cool. Now we've got an initial scaffold. Let's add the rest of our options! For the context, let's say we've got a `path.join` we want to make use of. For this, you use a single quote string.
+
+```js
+module.exports = function createDevConfig(answer) {
+	let entryProp = answer.entry ? ( "'" + answer.entry + "'") : "'index.js'";
+	let devConfig = {
+		entry: entryProp,
+		output: {
+			filename: "'[name].js'"
+		},
+		context: 'path.join(__dirname, "src")'
+	};
+	return devConfig;
+};
+```js
