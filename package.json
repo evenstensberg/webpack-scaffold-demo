@@ -1,8 +1,8 @@
 {
   "name": "webpack-addons-demo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Example webpack-addon",
-  "main": "index.js",
+  "main": "generator.js",
   "scripts": {
     "lint": "eslint ."
   },
