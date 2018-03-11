@@ -385,5 +385,49 @@ module.exports = class WebpackGenerator extends Generator {
 };
 ```
 
+## Part 5-C
+
+To write the actual configuration, webpack-cli creates a `.yo-rc.json` file for it to parse the ast. For the CLI to understand how to parse the configuration, we need to write to the `.yo-rc.json`. This is done using the `writing` lifecycle method built in by yeoman.
+
+
+```js
+const Generator = require('yeoman-generator');
+const List = require('webpack-addons').List;
+const Input = require('webpack-addons').Input;
+const createDevConfig = require('./dev-config');
+
+module.exports = class WebpackGenerator extends Generator {
+	constructor(args, opts) {
+		super(args, opts);
+		opts.env.configuration = {
+			dev: {
+				webpackOptions: {}
+			}
+		};
+	}
+
+	prompting() {
+		return this.prompt([
+			List('confirm', 'Welcome to the demo scaffold! Are you ready?', ['Yes', 'No', 'Pengwings']),
+			Input('entry', 'What is the entry point in your app?'),
+			Input('plugin', 'What do you want to name your commonsChunk?')
+		]).then (answer => {
+			if(answer['confirm'] === 'Pengwings') {
+				this.options.env.configuration.dev.webpackOptions = createDevConfig(answer);
+				this.options.env.configuration.dev.topScope = [
+					'const path = require("path")',
+					'const webpack = require("webpack")'
+				];
+				this.options.env.configuration.dev.configName = 'pengwings';
+			}
+		});
+	}
+	writing() {
+		this.config.set('configuration', this.options.env.configuration);
+	}
+};
+```
+
+
 Congrats on your first scaffold! If you need help, submit an [issue](https://github.com/ev1stensberg/webpack-addons-demo/issues), or reach out to me on [Twitter](https://twitter.com/ev1stensberg)!
 You can also check the [CLI repo](https://github.com/webpack/webpack-cli).
