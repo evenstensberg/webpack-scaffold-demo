@@ -29,4 +29,7 @@ module.exports = class WebpackGenerator extends Generator {
 			}
 		});
 	}
+	writing() {
+		this.config.set('configuration', this.options.env.configuration);
+	}
 };
