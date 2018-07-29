@@ -1,8 +1,13 @@
-# webpack-addons-demo
+## Note
+
+The package name is `webpack-addons`, but is depreciated in newer versions of webpack-cli. If you intend to create your own scaffold, prefix it with `webpack-scaffold-myname`.
+
+# webpack-scaffold-demo
 
 Welcome to an demonstration of the new `webpack --init` feature! To view what we are building today, simply do `webpack --init webpack-addons-demo`. This demo is to show you how to build your own webpack scaffold. Let's start by creating an file named `generator.js`.
 
 </hr>
+
 
 ## Part 1 
 
