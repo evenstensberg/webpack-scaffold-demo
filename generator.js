@@ -1,6 +1,6 @@
 const Generator = require('yeoman-generator');
-const List = require('webpack-addons').List;
-const Input = require('webpack-addons').Input;
+const List = require('@webpack-cli/webpack-scaffold').List;
+const Input = require('@webpack-cli/webpack-scaffold').Input;
 const createDevConfig = require('./dev-config');
 
 module.exports = class WebpackGenerator extends Generator {

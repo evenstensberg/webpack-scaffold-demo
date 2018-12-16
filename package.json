@@ -1,28 +1,28 @@
 {
-  "name": "webpack-addons-demo",
+  "name": "webpack-scaffold-demo",
   "version": "1.6.1",
-  "description": "Example webpack-addon",
+  "description": "Example webpack-scaffold",
   "main": "generator.js",
   "scripts": {
     "lint": "eslint ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ev1stensberg/webpack-addons-demo.git"
+    "url": "git+https://github.com/ev1stensberg/webpack-scaffold-demo.git"
   },
   "author": "Even Stensberg<evenstensberg@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ev1stensberg/webpack-addons-demo/issues"
+    "url": "https://github.com/ev1stensberg/webpack-scaffold-demo/issues"
   },
-  "homepage": "https://github.com/ev1stensberg/webpack-addons-demo#readme",
+  "homepage": "https://github.com/ev1stensberg/webpack-scaffold-demo#readme",
   "devDependencies": {
     "babel-eslint": "^6.1.2",
     "eslint": "^3.19.0",
     "eslint-plugin-node": "^4.2.2"
   },
   "dependencies": {
-    "webpack-addons": "^1.1.5",
-    "yeoman-generator": "^1.1.1"
+    "@webpack-cli/webpack-scaffold": "^0.1.2",
+    "yeoman-generator": "^3.1.1"
   }
 }

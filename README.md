@@ -1,10 +1,6 @@
-## Note
-
-The package name is `webpack-addons`, but is depreciated in newer versions of webpack-cli. If you intend to create your own scaffold, prefix it with `webpack-scaffold-myname`.
-
 # webpack-scaffold-demo
 
-Welcome to an demonstration of the new `webpack --init` feature! To view what we are building today, simply do `webpack --init webpack-addons-demo`. This demo is to show you how to build your own webpack scaffold. Let's start by creating an file named `generator.js`.
+Welcome to an demonstration of the new `webpack init` feature! To view what we are building today, simply do `webpack init webpack-scaffold-demo`. This demo is to show you how to build your own webpack scaffold. Let's start by creating an file named `generator.js`.
 
 </hr>
 
@@ -34,12 +30,12 @@ As you can see, the `configuration` object has to have one property you name, it
 
 ## PART 1-A
 
-In order for us to interact with the users, we make good use of the [`prompting`](http://yeoman.io/authoring/user-interactions.html) method yeoman has. In this method we can get various of answers from the user, like asking for entry points or plugins. You can either manually create each object representing a question, or you can make good use of our utilities from [`webpack-addons`](https://github.com/webpack-contrib/webpack-addons). I'm in a good mood today, so I'm going to build a configuration if the user chooses `Pengwings`.
+In order for us to interact with the users, we make good use of the [`prompting`](http://yeoman.io/authoring/user-interactions.html) method yeoman has. In this method we can get various of answers from the user, like asking for entry points or plugins. You can either manually create each object representing a question, or you can make good use of our utilities from [`webpack-scaffold`](https://github.com/webpack/webpack-cli/tree/master/packages/webpack-scaffold). I'm in a good mood today, so I'm going to build a configuration if the user chooses `Pengwings`.
 
 
 ```js
 const Generator = require('yeoman-generator');
-const List = require('webpack-addons').List;
+const List = require('@webpack-cli/webpack-scaffold').List;
 
 module.exports = class WebpackGenerator extends Generator {
 	constructor(args, opts) {
@@ -67,11 +63,11 @@ module.exports = class WebpackGenerator extends Generator {
 
 So far, we've made an interaction with the user. If you were coding along, great! So how do we proceed from here? Let's try to build a simple webpack config that has an entry point, an output, and a context property. For this, we need to create a `webpackOptions` property on our `dev` object. This is where `entry`, `output` and `context` is gonna be hooked up, later resulting in a `webpack.config.js`.
 
-##### Hint: Define the `webpackOptions` property in the constructor to make your addon as most clean as possible!
+##### Hint: Define the `webpackOptions` property in the constructor to make your scaffold as most clean as possible!
 
 ```js
 const Generator = require('yeoman-generator');
-const List = require('webpack-addons').List;
+const List = require('@webpack-cli/webpack-scaffold').List;
 
 module.exports = class WebpackGenerator extends Generator {
 	constructor(args, opts) {
@@ -99,7 +95,7 @@ module.exports = class WebpackGenerator extends Generator {
 
 ## Part 2-A
 
-Congrats, you've now created the base of an `webpack-addon`! Let's add some stuff to our future configuration file!
+Congrats, you've now created the base of an `webpack-scaffold`! Let's add some stuff to our future configuration file!
 I'm going to follow good convention, and extract my config into another file, named `dev-config.js`. As this is just regular JavaScript, we can make the module a function, and supply our entry as a parameter for us to build up a configuration file from.
 
 ##### `dev-config.js`
@@ -114,7 +110,7 @@ module.exports = function createDevConfig(answer) {
 
 ```js
 const Generator = require('yeoman-generator');
-const List = require('webpack-addons').List;
+const List = require('@webpack-cli/webpack-scaffold').List;
 const createDevConfig = require('./dev-config');
 
 module.exports = class WebpackGenerator extends Generator {
@@ -143,8 +139,8 @@ Sweet! We've now abstracted some part of the code that's probably gonna be reall
 
 ```js
 const Generator = require('yeoman-generator');
-const List = require('webpack-addons').List;
-const Input = require('webpack-addons').Input;
+const List = require('@webpack-cli/webpack-scaffold').List;
+const Input = require('@webpack-cli/webpack-scaffold').Input;
 const createDevConfig = require('./dev-config');
 
 module.exports = class WebpackGenerator extends Generator {
@@ -196,7 +192,7 @@ module.exports = function createDevConfig(answer) {
 
 ```
 
-Try running `webpack --init webpack-addons-demo`, and now you're seeing your first scaffold!
+Try running `webpack init webpack-scaffold-demo`, and now you're seeing your first scaffold!
 
 </hr>
 
@@ -226,8 +222,8 @@ We're ready to add an plugin, as a last piece of the puzzle. For this, I'm going
 
 ```js
 const Generator = require('yeoman-generator');
-const List = require('webpack-addons').List;
-const Input = require('webpack-addons').Input;
+const List = require('@webpack-cli/webpack-scaffold').List;
+const Input = require('@webpack-cli/webpack-scaffold').Input;
 const createDevConfig = require('./dev-config');
 
 module.exports = class WebpackGenerator extends Generator {
@@ -258,7 +254,7 @@ module.exports = class WebpackGenerator extends Generator {
 
 ## Part 4-B
 
-Let's go ahead and create our utility. We've got an utility for this in `webpack-addons`, so if you do `const createCommonsChunkPlugin = require('webpack-addons').commonChunksPluginCreate;`, you get the same thing. I'm doing this for demonstration purposes, so that you can better know how to compose an addon in good faith. First, I'm going to create a `create-chunk.js`, followed up by an import in `dev-config.js`.
+Let's go ahead and create our utility. We've got an utility for this in `webpack-scaffold`, so if you do `const createCommonsChunkPlugin = require('@webpack-cli/webpack-scaffold').commonChunksPluginCreate;`, you get the same thing. I'm doing this for demonstration purposes, so that you can better know how to compose a scaffold in good faith. First, I'm going to create a `create-chunk.js`, followed up by an import in `dev-config.js`.
 
 ##### `dev-config.js`
 
@@ -316,8 +312,8 @@ In order for webpack to compile correctly, we've got to import `path`. For this,
 
 ```js
 const Generator = require('yeoman-generator');
-const List = require('webpack-addons').List;
-const Input = require('webpack-addons').Input;
+const List = require('@webpack-cli/webpack-scaffold').List;
+const Input = require('@webpack-cli/webpack-scaffold').Input;
 const createDevConfig = require('./dev-config');
 
 module.exports = class WebpackGenerator extends Generator {
@@ -357,8 +353,8 @@ You also might want to name your config file something you've got strong persona
 
 ```js
 const Generator = require('yeoman-generator');
-const List = require('webpack-addons').List;
-const Input = require('webpack-addons').Input;
+const List = require('@webpack-cli/webpack-scaffold').List;
+const Input = require('@webpack-cli/webpack-scaffold').Input;
 const createDevConfig = require('./dev-config');
 
 module.exports = class WebpackGenerator extends Generator {
@@ -397,8 +393,8 @@ To write the actual configuration, webpack-cli creates a `.yo-rc.json` file for 
 
 ```js
 const Generator = require('yeoman-generator');
-const List = require('webpack-addons').List;
-const Input = require('webpack-addons').Input;
+const List = require('@webpack-cli/webpack-scaffold').List;
+const Input = require('@webpack-cli/webpack-scaffold').Input;
 const createDevConfig = require('./dev-config');
 
 module.exports = class WebpackGenerator extends Generator {
@@ -434,5 +430,5 @@ module.exports = class WebpackGenerator extends Generator {
 ```
 
 
-Congrats on your first scaffold! If you need help, submit an [issue](https://github.com/ev1stensberg/webpack-addons-demo/issues), or reach out to me on [Twitter](https://twitter.com/ev1stensberg)!
+Congrats on your first scaffold! If you need help, submit an [issue](https://github.com/ev1stensberg/webpack-scaffold-demo/issues), or reach out to me on [Twitter](https://twitter.com/evenstensberg)!
 You can also check the [CLI repo](https://github.com/webpack/webpack-cli).
